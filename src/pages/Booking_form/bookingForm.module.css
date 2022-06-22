@@ -1,0 +1,89 @@
+#mainsec {
+    /* background-image:
+    url('https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg') ;
+  background-size: cover;
+  background-repeat: no-repeat; */
+  /* height: 100vh;
+  width:100vw; */
+}
+
+#mainbox {
+  background: rgba(0,0,0,0.42);
+  margin:62px 44px 44px 44px;
+  padding-bottom:25px;
+
+
+
+}
+#firstbox {
+
+  display:flex;
+  align-items: center;
+
+}
+#textfield {
+
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+/* border: 0.5px solid #7D86A9; */
+border-radius: 10px;
+border: none;
+border-color: coral
+}
+
+#camera {
+
+  width: 30px;
+height: 25px;
+
+}
+#qrcode{
+  width: 30px;
+height: 25px;
+}
+#checkoutbox {
+
+  display:flex;
+  align-items: center;
+
+}
+#checkoutpic {
+
+  width: 33px;
+  height: 32px
+
+}
+#checkoutpic {
+
+  width: 33px;
+  height: 32px
+
+}
+#searchbox{
+
+  display: flex;
+  justify-content: end;
+}
+
+
+#buttonbox{
+
+  padding-top: 40px!important;
+}
+.signaturepad {
+  width: calc(100% - 2px)!important;
+
+  height:100%;
+  background-color: white;
+  border:1px solid #707070;
+              border-radius:10px;
+
+                background-color: white;
+}
+
+canvas {
+  background:white;
+  width:100%;
+  height:100%;
+  border:1px solid #707070;
+  border-radius:10px;
+}

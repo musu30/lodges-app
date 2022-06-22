@@ -1,0 +1,14 @@
+#mainbox {
+    background: rgba(0,0,0,0.42);
+    margin:62px 44px 44px 44px;
+    padding-bottom:25px;
+  
+  
+  
+  }
+  #firstbox {
+  
+    display:flex;
+    align-items: center;
+  
+  }

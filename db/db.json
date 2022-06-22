@@ -1,0 +1,97 @@
+{
+  "posts": {
+    "stats": {
+      "arrival": [
+        {
+          "value": "test",
+          "date": "12/10/12"
+        },
+        {
+          "value": "test",
+          "date": "12/10/12"
+        },
+        {
+          "value": "test",
+          "date": "12/10/12"
+        }
+      ],
+      "departure": [
+        {
+          "value": "test",
+          "date": "12/10/12"
+        },
+        {
+          "value": "test",
+          "date": "12/10/12"
+        },
+        {
+          "value": "test",
+          "date": "12/10/12"
+        }
+      ],
+      "reserve": [
+        {
+          "value": "man",
+          "date": "12/10/12"
+        },
+        {
+          "value": "hello",
+          "date": "12/10/12"
+        },
+        {
+          "value": "johnosn",
+          "date": "12/10/12"
+        }
+      ],
+      "guestInfo": [
+        {
+          "value": "musu",
+          "date": "12/10/12"
+        },
+        {
+          "value": "test",
+          "date": "12/10/12"
+        },
+        {
+          "value": "test",
+          "date": "12/10/12"
+        }
+      ]
+    },
+    "room_stats": {
+      "available": 20,
+      "reserved": 10,
+      "occupied": 30
+    }
+  },
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "musammil",
+    "id": 1,
+    "contact": 9544175926,
+    "profile_image": ""
+  },
+  "booking": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "date_of_arrival": "06/21/2022",
+      "no_of_rooms": 10,
+      "mobile": 11111111111111,
+      "name": "musu",
+      "id": 2
+    },
+    {
+      "id": 3
+    }
+  ]
+}

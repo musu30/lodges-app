@@ -1,0 +1,95 @@
+@media (orientation: landscape) {
+    #mainbox {
+      background: rgba(0,0,0,0.42);
+      margin : 62px 44px -44px 44px;
+      /* padding-bottom:25px; */
+
+  
+      /* width:100px; */
+      height: calc(100vh - 106px);
+      /* min-height: calc(100vh - 106px)!important; */
+      border-radius: 15px;
+        
+     
+    }
+  }
+  
+  @media (orientation: portrait) {
+    #mainbox {
+      background: rgba(0,0,0,0.42);
+      margin : 62px 44px -44px 44px;
+      padding-bottom:25px;
+    
+      display: flex;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      /* position: fixed; */
+      flex:1 1 auto; 
+      border-radius: 15px;
+      width: calc(100vw - 88px)!important;
+      /* height: calc(100vh - 144px)!important; */
+      min-height: calc(100vh - 144px)!important
+  
+     
+    }
+  }
+  #firstbox {
+
+    display:flex;
+    align-items: center;
+  
+  }
+  #camera {
+
+    width: 18px;
+  height: 15px;
+  
+  }
+#dash_head{
+  color:#00B3AE ;
+  margin-left: 20px;
+  font-weight:700;
+  margin-top: 40px;
+}
+
+
+#dahboardbox {
+
+  display:flex;
+  align-items: center;
+  /* background-color: transparent linear-gradient(143deg, #FFFFFF 0%, #FBFBFB 0%, #808080 100%) 0% 0% no-repeat padding-box!important; */
+background-color: #cccccc!important;
+   /* background-color: transparent linear-gradient(143deg, #FFFFFF 0%, #FBFBFB 0%, #808080 100%) 0% 0% !important;  */
+
+  height: 200px;
+  width: 100%;
+  border-radius: 15px;
+  min-width: 230px;
+  background-repeat:no-repeat;
+  background-position: right bottom;
+  
+}
+
+
+#dahboardbox:hover {
+  background-color: #00D5CF!important;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+  
+}
+
+#dahboardbox:hover #dash_head {
+  color: white;
+
+}
+#dashboard_list_data {
+  color:black!important ;
+  text-align: center;
+  justify-content: center!important;
+}
+#dashboard_list_data_date {
+  color:black!important ;
+  text-align: center;
+  justify-content: center!important;
+  padding-left:13px;
+}

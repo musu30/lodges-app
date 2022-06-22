@@ -1,0 +1,36 @@
+npm install -g json-server
+json-server --watch db.json
+
+
+
+const {id}=useParams();
+window.location.reload(false)--to refresh the screeen
+
+
+
+
+ return  data.value==="custom"?(
+                   
+                      <>
+                      <Button aria-describedby={id} variant="contained" onClick={handleClick}>
+                      Open Popover
+                    </Button>
+                     <Popover
+                     id={id}
+                     open={open}
+                     anchorEl={anchorEl}
+                     onClose={handleClose}
+                     anchorOrigin={{
+                       vertical: 'bottom',
+                       horizontal: 'left',
+                     }}
+                   >
+                     <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+                   </Popover>
+                   </>
+                    ) : (
+                      <Button aria-describedby={id} variant="contained">
+                     {data.value}
+                    </Button>
+                    )
+                    }
