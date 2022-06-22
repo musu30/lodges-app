@@ -9,12 +9,16 @@ body{
   /* overflow: hidden; */
   /* position: fixed; */
   /* overflow: hidden; */
-
+  overflow: hidden;
 
   height: 100%!important;
     }
 
-
+    #maincontainer {
+      height: 100vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+  }
 
     body > .mainwrapper {
       position: relative;
