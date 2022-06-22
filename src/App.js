@@ -56,6 +56,12 @@ function App() {
             name="Login Page"
             element={<LoginForm />}
           />
+           <Route
+            exact
+            path="/"
+            name="Login Page"
+            element={<LoginForm />}
+          />
           <Route
             exact
             path="/dashboard"
