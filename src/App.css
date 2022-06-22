@@ -10,12 +10,14 @@ body{
   /* position: fixed; */
   /* overflow: hidden; */
 
+
   height: 100%!important;
     }
 
 
 
     body > .mainwrapper {
+      position: relative;
 
       overflow-y: scroll!important;
       -webkit-overflow-scrolling: touch; /* enables “momentum” (smooth) scrolling */
