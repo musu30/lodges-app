@@ -5,9 +5,20 @@ body{
     background-image:
     url('../public/images/img_background.jpg') ;
   background-size: cover;
-  
+  /* position: static; */
+  /* overflow: hidden; */
+  /* position: fixed; */
+  /* overflow: hidden; */
 
   height: 100%!important;
+    }
+
+
+
+    body > .mainwrapper {
+
+      overflow-y: scroll!important;
+      -webkit-overflow-scrolling: touch; /* enables “momentum” (smooth) scrolling */
     }
 
     .selected {

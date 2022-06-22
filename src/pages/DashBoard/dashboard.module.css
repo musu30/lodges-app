@@ -6,9 +6,10 @@
 
   
       /* width:100px; */
-      height: calc(100vh - 106px);
+      /* height: calc(100vh - 106px); */
       /* min-height: calc(100vh - 106px)!important; */
       border-radius: 15px;
+      padding-bottom: 25px;
         
      
     }
