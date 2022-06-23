@@ -10,6 +10,7 @@ body{
   /* position: fixed; */
   /* overflow: hidden; */
   overflow: hidden;
+  overscroll-behavior: contain;
 
   height: 100%!important;
     }
