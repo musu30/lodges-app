@@ -9,7 +9,7 @@ body{
   /* overflow: hidden; */
   /* position: fixed; */
   /* overflow: hidden; */
-  /* overflow: hidden; */
+  overflow: hidden;
   overscroll-behavior: contain!important;
 
   height:-webkit-fill-available!important;
