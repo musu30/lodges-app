@@ -9,10 +9,10 @@ body{
   /* overflow: hidden; */
   /* position: fixed; */
   /* overflow: hidden; */
-  overflow: hidden;
-  overscroll-behavior: contain;
+  /* overflow: hidden; */
+  overscroll-behavior: contain!important;
 
-  height: 100%!important;
+  height:-webkit-fill-available!important;
     }
 
     #maincontainer {
