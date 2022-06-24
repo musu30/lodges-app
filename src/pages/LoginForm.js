@@ -23,8 +23,8 @@ function LoginForm() {
     id: yup.string().email().required("Required"),
     password: yup
       .string()
-      .required("Password required")
-      .min(8, "Password is too short - should be 8 chars minimum."),
+      .required("Password required !!")
+      .min(8, "Password is too short - should be 8 chars minimum. !!"),
   });
   const {
     register,
