@@ -24,7 +24,7 @@ function LoginForm() {
     password: yup
       .string()
       .required("Password required !!")
-      .min(8, "Password is too short - should be 8 chars minimum."),
+      .min(8, "Password is too short - should be 8 chars minimum. !!"),
   });
   const {
     register,
