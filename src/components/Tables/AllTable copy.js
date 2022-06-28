@@ -22,13 +22,6 @@ import * as service from "../../services/employeeService";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteTableDataDlg from "../Diologues/DeleteTableDataDlg";
-import {
-  AllCells,
-  ArrivalCells,
-  DepartureCells,
-  DraftCells,
-  DeletedCells,
-} from "../../utils/models/tablemodels";
 
 //in react we cant directly give as fn as parameter ,we can give fn name as key to object and then pass that
 // object as parameter
@@ -45,43 +38,61 @@ function AllTable(props) {
     },
   });
   const [selected, setSelected] = useState([]);
-  const [headCells, setHeadCells] = useState([]);
   const [list, setList] = useState([]);
   const navigate = useNavigate();
   const tableComponent = useRef(null);
-  const [currentTbl, setCurrentTbl] = useState([]);
 
-  const [print, setPrint] = useState([]);
-  const [printheads, setPrintheads] = useState([]);
-  const [printVal, setPrintVal] = useState([]);
-  const [filerValue, setFilterValue] = useState();
-
-
-
-
+  const headCells = [
+    {
+      id: "id",
+      label: "ID",
+      disableSorting: true,
+    },
+    {
+      id: "guest",
+      label: "Guest",
+      disableSorting: false,
+    },
+    {
+      id: "room",
+      label: "Room",
+      disableSorting: true,
+    },
+    {
+      id: "date",
+      label: "Date",
+      disableSorting: true,
+    },
+    {
+      id: "id1",
+      label: "ID",
+      disableSorting: true,
+    },
+    {
+      id: "guest2",
+      label: "Guest",
+      disableSorting: false,
+    },
+    {
+      id: "room1",
+      label: "Room",
+      disableSorting: true,
+    },
+    {
+      id: "date1",
+      label: "Date",
+      disableSorting: true,
+    },
+  ];
 
   useEffect(() => {
     props.searchComponent.handleSearch = handleSearch;
     setRecords(service.getData());
-    if (props.index === 0) {
-      setHeadCells(AllCells);
-    } else if (props.index === 1) {
-      setHeadCells(ArrivalCells);
-    } else if (props.index === 2) {
-      setHeadCells(DepartureCells);
-    } else if (props.index === 3) {
-      setHeadCells(DeletedCells);
-    } else if (props.index === 4) {
-      setHeadCells(DraftCells);
-    } else {
-      setHeadCells(AllCells);
-    }
-
-    console.log("reached table component");
+    // console.log(records);
     return () => {
       // cleanup
     };
-  }, [props.index]);
+  }, []);
 
   const handleRowDelete = (event, row) => {
     event.stopPropagation();
@@ -149,19 +160,9 @@ function AllTable(props) {
     });
 
     props.setDeleteData(newRawData);
+    // console.log("selected new raw data=>", newRawData);
 
-
-
-
-    // const generatePdfData = () => {
-    //   recordsAfterSorting().map((item)=>{
-    //     {headCells.map((data) => {
-
-    //     })}
-
-    //   })
-    // };
-   
+    // console.log("selected data=>", newSelected);
   };
 
   const handleSearch = (e) => {
@@ -217,56 +218,13 @@ function AllTable(props) {
                   // }}
                 />
               </TableCell>
-
-              {headCells.map((data) => (
-                <>
-                  {data.id === "id" ? (
-                    <TableCell style={{ padding: "8px" }}>{item.id}</TableCell>
-                  ) : (
-                    ""
-                  )}
-                  {data.id === "guest" ? (
-                    <TableCell style={{ padding: "8px" }}>
-                      {item.guest}
-                    </TableCell>
-                  ) : (
-                    ""
-                  )}
-                  {data.id === "room" ? (
-                    <TableCell style={{ padding: "8px" }}>
-                      {item.room}
-                    </TableCell>
-                  ) : (
-                    ""
-                  )}
-                  {data.id === "date" ? (
-                    <TableCell style={{ padding: "8px" }}>
-                      {item.date}
-                    </TableCell>
-                  ) : (
-                    ""
-                  )}
-                  {data.id === "id" ? (
-                    <TableCell style={{ padding: "8px" }}>{item.id}</TableCell>
-                  ) : (
-                    ""
-                  )}
-                  {data.id === "guest" ? (
-                    <TableCell style={{ padding: "8px" }}>
-                      {item.guest}
-                    </TableCell>
-                  ) : (
-                    ""
-                  )}
-                  {data.id === "room" ? (
-                    <TableCell style={{ padding: "8px" }}>
-                      {item.room}
-                    </TableCell>
-                  ) : (
-                    ""
-                  )}
-                </>
-              ))}
+              <TableCell style={{ padding: "8px" }}>{item.id}</TableCell>
+              <TableCell style={{ padding: "8px" }}>{item.guest}</TableCell>
+              <TableCell style={{ padding: "8px" }}>{item.room}</TableCell>
+              <TableCell style={{ padding: "8px" }}>{item.date}</TableCell>
+              <TableCell style={{ padding: "8px" }}>{item.id}</TableCell>
+              <TableCell style={{ padding: "8px" }}>{item.guest}</TableCell>
+              <TableCell style={{ padding: "8px" }}>{item.room}</TableCell>
               <TableCell style={{ padding: "8px" }}>
                 <EditIcon
                   onClick={(item) => {
@@ -285,11 +243,6 @@ function AllTable(props) {
         data={rowData}
         setOpen={setDltDlgOpen}
       />
-       {/* <TablePdfGeneration
-        print={print}
-        headers={printheads}
-        values={printVal}
-      /> */}
     </Paper>
   );
 }

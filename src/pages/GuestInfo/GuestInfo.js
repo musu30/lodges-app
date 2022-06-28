@@ -33,7 +33,7 @@ import {
   AllCells,
   ArrivalCells,
   DraftCells,
-  ReservedCells,
+  DeletedCells,
   DepartureCells,
 } from "../../utils/models/tablemodels";
 import AllTable from "../../components/Tables/AllTable";
@@ -41,14 +41,16 @@ import DeleteTableDataDlg from "../../components/Diologues/DeleteTableDataDlg";
 import CustomFilter from "../../components/CustomFilter/CustomFilter";
 import CustomFilterPopOver from "../../components/CustomFilters/CustomFIlterPopover";
 import Appbar from "../../components/AppBar/Appbar";
+import TablePdfGeneration from "../../components/PdfGenerator/TablePdfGeneration";
 function GuestInfo() {
   const navigate = useNavigate();
   const [value, setValue] = useState(0);
   const [deleteData, setDeleteData] = useState([]);
   const [dltDlgOpen, setDltDlgOpen] = useState(false);
   const searchComponent = useRef(null);
-
   const [openCustom, setOpenCustom] = useState(false);
+  const [filerValue, setFilterValue] = useState(false);
+  const [tblIndex, setTblIndex] = useState(0);
   const handleFilterChange = (data) => {
     console.log("data is =>", data);
     if (data.id == 5) {
@@ -61,31 +63,22 @@ function GuestInfo() {
       id: 0,
       value: "All",
       heads: AllCells,
-      component: (
-        <AllTable
-          setDeleteData={setDeleteData}
-          searchComponent={searchComponent}
-        />
-      ),
     },
-    { id: 1, value: "Arrival", heads: ArrivalCells, component: <Bookings /> },
+    { id: 1, value: "Arrival", heads: ArrivalCells },
     {
       id: 2,
       value: "Departure",
       heads: DepartureCells,
-      component: "<Bookings headCells={data.heads} />",
     },
     {
       id: 3,
-      value: "Reserved",
-      heads: ReservedCells,
-      component: "<Bookings headCells={data.heads} />",
+      value: "Deleted",
+      heads: DeletedCells,
     },
     {
       id: 4,
       value: "Drafts",
       heads: DraftCells,
-      component: "<Bookings headCells={data.heads} />",
     },
   ];
 
@@ -101,7 +94,9 @@ function GuestInfo() {
   // const tablesData=[AllCells,ArrivalCells];
 
   const handleChange = (event, newValue) => {
+    console.log("new value is --------", newValue);
     setValue(newValue);
+    setTblIndex(newValue);
   };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -128,7 +123,12 @@ function GuestInfo() {
     setFilterValue(value);
   };
 
-  const [filerValue, setFilterValue] = useState();
+  const handleClickPrint = () => {
+    console.log("clicked the print");
+    // setPrint(true);
+    // setPrintheads();
+    // setPrintVal();
+  };
 
   return (
     <Box>
@@ -410,7 +410,7 @@ function GuestInfo() {
                 })}
               </Grid>
 
-              <Box
+              {/* <Box
                 sx={{
                   justifyContent: "center",
                   alignItems: "center",
@@ -424,7 +424,7 @@ function GuestInfo() {
                     setDltDlgOpen(true);
                   }}
                 />
-              </Box>
+              </Box> */}
             </Grid>
           </Stack>
 
@@ -472,10 +472,7 @@ function GuestInfo() {
               >
                 <PrintIcon
                   sx={{ color: "white", marginRight: "12px" }}
-                  onClick={() => {
-                    console.log("hiiiii");
-                    // setDltDlgOpen(true);
-                  }}
+                  onClick={handleClickPrint}
                 />
                 <FileDownloadIcon
                   sx={{ color: "white", marginRight: "12px" }}
@@ -484,12 +481,23 @@ function GuestInfo() {
                     // setDltDlgOpen(true);
                   }}
                 />
+                <DeleteIcon
+                  sx={{ color: "white" }}
+                  onClick={() => {
+                    console.log("hiiiii");
+                    setDltDlgOpen(true);
+                  }}
+                />
               </Box>
             </Box>
 
             {tabs.map((data, index) => (
               <TabPanel value={value} index={index}>
-                {data.component}
+                <AllTable
+                  index={tblIndex}
+                  setDeleteData={setDeleteData}
+                  searchComponent={searchComponent}
+                />
               </TabPanel>
             ))}
           </Box>
