@@ -151,7 +151,6 @@ function RoomSettingsForm() {
       if (item.values.length > 0) {
         item.values.map((value) => {
           if (value.room__number == val) {
-            console.log("vakkkkkk---",val)
             flag = false;
             return flag;
           }
