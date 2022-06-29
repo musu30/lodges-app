@@ -112,11 +112,7 @@ const DepartureCells = [
     disableSorting: true,
   },
 
-  {
-    id: "action",
-    label: "Action",
-    disableSorting: true,
-  },
+
 ];
 const DeletedCells = [
   {

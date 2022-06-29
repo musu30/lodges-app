@@ -1,8 +1,8 @@
 import { MenuItem, Select } from "@mui/material";
 import React from "react";
 
-function CustomSelect(props) {
-
+function CustomSelectValue(props) {
+  console.log(props.muiOptions);
   return (
     <>
       {/* <FormControl sx={{ m: 1 }} variant="outlined"> */}
@@ -37,7 +37,7 @@ function CustomSelect(props) {
           return (
             <MenuItem
               sx={{ fontSize: props.optionFontSize }}
-              value={option.id}
+              value={option.value}
             >
               {option.value}
             </MenuItem>
@@ -49,4 +49,4 @@ function CustomSelect(props) {
   );
 }
 
-export default CustomSelect;
+export default CustomSelectValue;

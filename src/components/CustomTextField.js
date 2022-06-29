@@ -9,6 +9,7 @@ function CustomTextField({
   type,
   // inputprops,
     register,
+    handleChange,
   other
 }) {
   return (
@@ -31,6 +32,7 @@ function CustomTextField({
         border: "none",
         borderColor: "coral",
       }}
+      onChange={handleChange}
       // {...other}
       // InputProps={inputprops}
     //  {...register(name)}

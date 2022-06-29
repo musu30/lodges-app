@@ -14,6 +14,7 @@ import React, { useCallback, useRef, useState } from "react";
 import { styled } from "@mui/styles";
 import CustomLabel from "./CustomLabel";
 import { WebcamCapture } from "./WebCam";
+import { CLR_ORANGE } from "../utils/colors";
 
 function ImageDiologueBox(props) {
   const [retake, setRetake] = useState(false);
@@ -24,7 +25,7 @@ function ImageDiologueBox(props) {
   }, []);
   const webcomponent = useRef(null);
 
-
+  
 
 
   return (
@@ -34,7 +35,7 @@ function ImageDiologueBox(props) {
       open={props.open}
       sx={{
         "& .MuiPaper-root": {
-          background: "#00BEB9!important",
+          background: `${CLR_ORANGE}`,
           borderRadius: "20px",
         },
         "& .MuiDialogContent-root": {

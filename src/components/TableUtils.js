@@ -50,17 +50,24 @@ function TableUtils(records, headCells, filterFn, other) {
     return (
       <TableHead>
         <TableRow>
-          <TableCell padding="checkbox">
-            <Checkbox
-              color="primary"
-              // indeterminate={numSelected > 0 && numSelected < rowCount}
-              checked={records.length > 0 && ((other&&other.length) === records.length)}
-              onChange={props.onSelectAllClick}
-              inputProps={{
-                "aria-label": "select all desserts",
-              }}
-            />
-          </TableCell>
+          {props.flag ? (
+            <TableCell padding="checkbox">
+              <Checkbox
+                color="primary"
+                // indeterminate={numSelected > 0 && numSelected < rowCount}
+                checked={
+                  records.length > 0 &&
+                  (other && other.length) === records.length
+                }
+                onChange={props.onSelectAllClick}
+                inputProps={{
+                  "aria-label": "select all desserts",
+                }}
+              />
+            </TableCell>
+          ) : (
+            <TableCell padding="checkbox">Sl No</TableCell>
+          )}
           {headCells.map((headCell) => (
             <TableCell
               key={headCell.id}
@@ -96,7 +103,7 @@ function TableUtils(records, headCells, filterFn, other) {
     setPage(0);
   };
   const recordsAfterPagingAndSorting = () => {
-    const data= stableSort(
+    const data = stableSort(
       // records,
       filterFn.fn(records),
       getComparator(order, orderBy)
@@ -136,8 +143,8 @@ function TableUtils(records, headCells, filterFn, other) {
   }
 
   const recordsAfterSorting = () => {
-    const data= filterFn.fn(records)
-    
+    const data = filterFn.fn(records);
+
     // setFilterRecords(data);
     return data;
     // console.log(
@@ -176,7 +183,7 @@ function TableUtils(records, headCells, filterFn, other) {
     TblHead,
     TblPagination,
     recordsAfterPagingAndSorting,
-    recordsAfterSorting
+    recordsAfterSorting,
   };
 }
 

@@ -12,7 +12,6 @@
 
   display:flex;
   align-items: center;
-  margin-top:5px;
 
 }
 #textfield {
@@ -24,14 +23,6 @@ border: none;
 border-color: coral
 }
 
-#orange {
-
-  color:"#E98D12!important";
-
-
-}
-
-
 #camera {
 
   width: 30px;
@@ -41,7 +32,6 @@ height: 25px;
 #qrcode{
   width: 30px;
 height: 25px;
-margin-left:12px;
 }
 #checkoutbox {
 
@@ -89,9 +79,4 @@ canvas {
   height:100%;
   border:1px solid #707070;
   border-radius:10px;
-}
-
-#buttonbox{
-
-  width: 173px;
 }

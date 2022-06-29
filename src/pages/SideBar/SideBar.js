@@ -50,7 +50,7 @@ function SideBar() {
           <ListItem
             key={index}
             component={NavLink}
-            // activeClassName={styles.active}
+            activeclassname={styles.active}
             exact="true"
             to={data.url}
             disablePadding

@@ -1,10 +1,17 @@
+#mainsec {
+    /* background-image:
+    url('https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg') ;
+  background-size: cover;
+  background-repeat: no-repeat; */
+  /* height: 100vh;
+  width:100vw; */
+}
 
 #mainbox {
   background: rgba(0,0,0,0.42);
   margin:62px 44px 44px 44px;
-  padding-bottom:30px;
+  padding-bottom:25px;
 
-  border-radius: 15px;
 
 
 }
@@ -12,7 +19,6 @@
 
   display:flex;
   align-items: center;
-  margin-top:5px;
 
 }
 #textfield {
@@ -24,14 +30,6 @@ border: none;
 border-color: coral
 }
 
-#orange {
-
-  color:"#E98D12!important";
-
-
-}
-
-
 #camera {
 
   width: 30px;
@@ -41,7 +39,6 @@ height: 25px;
 #qrcode{
   width: 30px;
 height: 25px;
-margin-left:12px;
 }
 #checkoutbox {
 
@@ -89,9 +86,4 @@ canvas {
   height:100%;
   border:1px solid #707070;
   border-radius:10px;
-}
-
-#buttonbox{
-
-  width: 173px;
 }

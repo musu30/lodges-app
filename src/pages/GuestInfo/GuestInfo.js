@@ -53,9 +53,27 @@ function GuestInfo() {
   const [tblIndex, setTblIndex] = useState(0);
   const handleFilterChange = (data) => {
     console.log("data is =>", data);
+    let obj = {
+      from_date: "",
+      to_date: "",
+      table: "",
+      from_time: "",
+      to_time: "",
+    };
     if (data.id == 5) {
       // console.log("data in =>", data);
       setAnchorEl(true);
+    }
+
+    if (data === "today") {
+      obj.from_date = new Date();
+    } else if (data === "yesterday") {
+      let now = new Date();
+      // new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
+    } else if (data === "This week") {
+    } else if (data === "Last Week") {
+    } else if (data === "Last Month") {
+    } else if (data === "Last Month") {
     }
   };
   const tabs = [
@@ -350,53 +368,6 @@ function GuestInfo() {
                           </Menu>
                         </LocalizationProvider>
                       </React.Fragment>
-                      {/* <Popover
-                        id={id}
-                        open={open}
-                        anchorEl={anchorEl}
-                        onClose={handleClose}
-                        anchorOrigin={{
-                          vertical: "center",
-                          horizontal: "right",
-                        }}
-                        transformOrigin={{
-                          vertical: "bottom",
-                          horizontal: "left",
-                        }}
-                        sx= {{
-                       
-                          borderRadius: "20px",
-                          // color: "white",
-                          background: "#00D5CF",
-                          width:"300px"
-                        }}
-                      >
-                       <LocalizationProvider dateAdapter={AdapterDateFns}>
-                          <Box style={{display:"flex",width:"300px"}}>
-                            <CustomLabel
-                              style={{ paddingLeft: "18px" }}
-                              label="From"
-                            />
-
-                            <DesktopDatePicker
-                              inputFormat="dd/mm/yyyy"
-                              value={value}
-                              onChange={handleDateChange}
-                              //   {...props.register(props.name)}
-                              renderInput={(params) => (
-                                <TextField
-                                  {...params}
-                                  sx={{
-                                    width: "100%",
-                                    background: "white!important",
-                                    borderRadius: "10px",
-                                  }}
-                                />
-                              )}
-                            />
-                          </Box>
-                        </LocalizationProvider>
-                      </Popover> */}
                     </>
                   ) : (
                     <Button
@@ -409,37 +380,8 @@ function GuestInfo() {
                   );
                 })}
               </Grid>
-
-              {/* <Box
-                sx={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  display: "flex",
-                }}
-              >
-                <DeleteIcon
-                  sx={{ color: "white" }}
-                  onClick={() => {
-                    console.log("hiiiii");
-                    setDltDlgOpen(true);
-                  }}
-                />
-              </Box> */}
             </Grid>
           </Stack>
-
-          {/* <Box style={{ margin: "15px" }}>
-            <Stack direction="row" spacing={2}>
-              {filterColoumns.map((data, index) => (
-                <Button
-                  sx={{ color: "#00D5CF", backgroundColor: "white" }}
-                  variant="contained"
-                >
-                  {data.value}
-                </Button>
-              ))}
-            </Stack>
-          </Box> */}
 
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <Box style={{ display: "flex", justifyContent: "space-between" }}>

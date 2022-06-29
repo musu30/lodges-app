@@ -9,7 +9,7 @@ import axios from "axios";
 function App() {
   const [loader, setLoader] = useState(false);
   const loading = (
-    <div class="loader">
+    <div className="loader">
     </div>
   );
   // For GET requests

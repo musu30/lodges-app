@@ -20,6 +20,7 @@ import RoomPreferencesIcon from "@mui/icons-material/RoomPreferences";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfileData } from "../../redux/action/profile.action";
+import styles from "./appbar.module.css"
 
 function Appbar(props) {
   const dispatch = useDispatch();
@@ -33,9 +34,6 @@ function Appbar(props) {
   const { data, loading, imgSrc } = useSelector(
     (state) => state.profileReducer
   );
-  console.log("data is ----->", data);
-
-
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
@@ -61,22 +59,31 @@ function Appbar(props) {
         justifyContent="space-between"
         alignItems="center"
         spacing={2}
-        style={{marginLeft:"20px",marginRight:"25px",marginBottom:"25px",marginTop:"15px"}}
+        style={{
+          marginLeft: "20px",
+          marginRight: "25px",
+          marginBottom: "25px",
+          marginTop: "15px",
+        }}
       >
-      
-        {props.heading != undefined ? (
-           <Typography
-           sx={{
-             color: "white",
-             fontWeight:"700",
-             margin:"8px"
-           }}
-         >
-           {props.heading}
-         </Typography> 
+        {props.heading != undefined  ? (
+          <Typography
+            sx={{
+              color: "white",
+              fontWeight: "700",
+              margin: "8px",
+            }}
+          >
+            {props.heading}
+          </Typography>
         ) : (
           <CustomLabel label=" " />
         )}
+        {/* {props.logo != undefined ? (
+           <img id={styles.logo} src="/images/icon_logo.png" />
+        ) : (
+          <CustomLabel label=" " />
+        )} */}
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}

@@ -29,6 +29,9 @@ import {
   DraftCells,
   DeletedCells,
 } from "../../utils/models/tablemodels";
+import ToggleSwitch from "../ToggleSwich/ToggleSwitch";
+import { styled } from '@mui/material/styles';
+import Switch from '@mui/material/Switch';
 
 //in react we cant directly give as fn as parameter ,we can give fn name as key to object and then pass that
 // object as parameter
@@ -55,26 +58,30 @@ function AllTable(props) {
   const [printheads, setPrintheads] = useState([]);
   const [printVal, setPrintVal] = useState([]);
   const [filerValue, setFilterValue] = useState();
-
-
-
-
+  const [checkBoxFlag, setCheckBoxFlag] = useState(false);
+  
 
   useEffect(() => {
     props.searchComponent.handleSearch = handleSearch;
     setRecords(service.getData());
     if (props.index === 0) {
       setHeadCells(AllCells);
+      setCheckBoxFlag(true);
     } else if (props.index === 1) {
       setHeadCells(ArrivalCells);
+      setCheckBoxFlag(false);
     } else if (props.index === 2) {
       setHeadCells(DepartureCells);
+      setCheckBoxFlag(false);
     } else if (props.index === 3) {
       setHeadCells(DeletedCells);
+      setCheckBoxFlag(true);
     } else if (props.index === 4) {
       setHeadCells(DraftCells);
+      setCheckBoxFlag(false);
     } else {
       setHeadCells(AllCells);
+      setCheckBoxFlag(true);
     }
 
     console.log("reached table component");
@@ -150,9 +157,6 @@ function AllTable(props) {
 
     props.setDeleteData(newRawData);
 
-
-
-
     // const generatePdfData = () => {
     //   recordsAfterSorting().map((item)=>{
     //     {headCells.map((data) => {
@@ -161,7 +165,6 @@ function AllTable(props) {
 
     //   })
     // };
-   
   };
 
   const handleSearch = (e) => {
@@ -184,6 +187,60 @@ function AllTable(props) {
     // e.preventDefault()
   };
 
+
+
+  const IOSSwitch = styled((props) => (
+    <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
+  ))(({ theme }) => ({
+    width: 42,
+    height: 26,
+    padding: 0,
+    '& .MuiSwitch-switchBase': {
+      padding: 0,
+      margin: 2,
+      transitionDuration: '300ms',
+      '&.Mui-checked': {
+        transform: 'translateX(16px)',
+        color: '#fff',
+        '& + .MuiSwitch-track': {
+          backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
+          opacity: 1,
+          border: 0,
+        },
+        '&.Mui-disabled + .MuiSwitch-track': {
+          opacity: 0.5,
+        },
+      },
+      '&.Mui-focusVisible .MuiSwitch-thumb': {
+        color: '#33cf4d',
+        border: '6px solid #fff',
+      },
+      '&.Mui-disabled .MuiSwitch-thumb': {
+        color:
+          theme.palette.mode === 'light'
+            ? theme.palette.grey[100]
+            : theme.palette.grey[600],
+      },
+      '&.Mui-disabled + .MuiSwitch-track': {
+        opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
+      },
+    },
+    '& .MuiSwitch-thumb': {
+      boxSizing: 'border-box',
+      width: 22,
+      height: 22,
+    },
+    '& .MuiSwitch-track': {
+      borderRadius: 26 / 2,
+      backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
+      opacity: 1,
+      transition: theme.transitions.create(['background-color'], {
+        duration: 500,
+      }),
+    },
+  }));
+  
+
   const {
     TblContainer,
     TblHead,
@@ -197,84 +254,115 @@ function AllTable(props) {
       style={{ borderRadius: "20px", paddingTop: "20px", overflowX: "auto" }}
     >
       <TblContainer>
-        <TblHead onSelectAllClick={onSelectAllClick} />
+        <TblHead onSelectAllClick={onSelectAllClick} flag={checkBoxFlag} />
         <TableBody>
-          {recordsAfterPagingAndSorting().map((item) => (
+          {recordsAfterPagingAndSorting().map((item, index) => (
             <TableRow
               key={item.id}
-              onClick={(event) => handleClick(event, item.id)}
+              onClick={(event) => {
+                if (headCells === AllCells || headCells === DeletedCells)
+                  handleClick(event, item.id);
+              }}
               role="checkbox"
               aria-checked={isSelected(item.id)}
               tabIndex={-1}
               selected={isSelected(item.id)}
             >
-              <TableCell padding="checkbox">
-                <Checkbox
-                  color="primary"
-                  checked={isSelected(item.id)}
-                  // inputProps={{
-                  //   "aria-labelledby": labelId,
-                  // }}
-                />
-              </TableCell>
+              {headCells === AllCells || headCells === DeletedCells ? (
+                <TableCell padding="checkbox">
+                  <Checkbox
+                    color="primary"
+                    checked={isSelected(item.id)}
+                    // inputProps={{
+                    //   "aria-labelledby": labelId,
+                    // }}
+                  />
+                </TableCell>
+              ) : (
+                <TableCell style={{ padding: "8px" }}>{index + 1}</TableCell>
+              )}
 
               {headCells.map((data) => (
                 <>
-                  {data.id === "id" ? (
-                    <TableCell style={{ padding: "8px" }}>{item.id}</TableCell>
-                  ) : (
-                    ""
-                  )}
-                  {data.id === "guest" ? (
+                  {data.id === "name" ? (
                     <TableCell style={{ padding: "8px" }}>
-                      {item.guest}
+                      {item.name}
                     </TableCell>
                   ) : (
                     ""
                   )}
-                  {data.id === "room" ? (
+                  {data.id === "mobile" ? (
                     <TableCell style={{ padding: "8px" }}>
-                      {item.room}
+                      {item.mobile}
                     </TableCell>
                   ) : (
                     ""
                   )}
-                  {data.id === "date" ? (
+                  {data.id === "occupation" ? (
                     <TableCell style={{ padding: "8px" }}>
-                      {item.date}
+                      {item.occupation}
                     </TableCell>
                   ) : (
                     ""
                   )}
-                  {data.id === "id" ? (
-                    <TableCell style={{ padding: "8px" }}>{item.id}</TableCell>
-                  ) : (
-                    ""
-                  )}
-                  {data.id === "guest" ? (
+                  {data.id === "purpose_of_visit" ? (
                     <TableCell style={{ padding: "8px" }}>
-                      {item.guest}
+                      {item.purpose_of_visit}
                     </TableCell>
                   ) : (
                     ""
                   )}
-                  {data.id === "room" ? (
+                  {data.id === "room_number" ? (
                     <TableCell style={{ padding: "8px" }}>
-                      {item.room}
+                      {item.room_number}
                     </TableCell>
                   ) : (
                     ""
                   )}
+                  {data.id === "arrival_date" ? (
+                    <TableCell style={{ padding: "8px" }}>
+                      {item.arrival_date}
+                    </TableCell>
+                  ) : (
+                    ""
+                  )}
+                  {data.id === "departure_date" ? (
+                    <TableCell style={{ padding: "8px" }}>
+                      {item.departure_date}
+                    </TableCell>
+                  ) : (
+                    ""
+                  )}
+                  {data.id === "action" ? (
+                    <TableCell style={{ padding: "8px" }}>
+                      <EditIcon
+                        onClick={(item) => {
+                          navigate("/add-booking");
+                        }}
+                      />
+                      <DeleteIcon
+                        onClick={(event) => handleRowDelete(event, item)}
+                      />
+                    </TableCell>
+                  ) : (
+                    ""
+                  )}
+                  {data.id === "activate" ? (
+                    <ToggleSwitch  />
+                  ) : (
+                    ""
+                  )}
+      
                 </>
               ))}
-              <TableCell style={{ padding: "8px" }}>
+              {/* <TableCell style={{ padding: "8px" }}>
                 <EditIcon
                   onClick={(item) => {
                     navigate("/add-booking");
                   }}
                 />
                 <DeleteIcon onClick={(event) => handleRowDelete(event, item)} />
-              </TableCell>
+              </TableCell> */}
             </TableRow>
           ))}
         </TableBody>
@@ -285,7 +373,7 @@ function AllTable(props) {
         data={rowData}
         setOpen={setDltDlgOpen}
       />
-       {/* <TablePdfGeneration
+      {/* <TablePdfGeneration
         print={print}
         headers={printheads}
         values={printVal}

@@ -16,7 +16,7 @@ import {
   Typography,
 } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import CustomAutoComplete from "../../components/CustomAutoComplete";
 import CustomTextField from "../../components/CustomTextField";
 import styles from "./bookingForm.module.css";
@@ -81,6 +81,7 @@ function BookingForm() {
   const [data, setData] = React.useState("Not Found");
   const handleScan = (data) => {
     setQrData(data);
+    
   };
   const handleError = (err) => {
     console.error(err);
@@ -94,12 +95,7 @@ function BookingForm() {
     console.log(mode);
   };
 
-  const handleCheckOutDateChange = (newValue) => {
-    // setValue(newValue);
-    setValues({ ...values, check_out_date_time: value });
-  };
-  const handleCheckinDateChange = (newValue) => {
-    setValues({ ...values, check_in_date_time: value });
+  const handleDateChange = (newValue) => {
     setValue(newValue);
   };
 
@@ -107,16 +103,6 @@ function BookingForm() {
     // Update the state
     setImage(URL.createObjectURL(event.target.files[0]));
     console.log("image is =>", image);
-  };
-
-  let sigCanvas = useRef({});
-
-  const formatIntoPng = () => {
-    if (sigCanvas.current) {
-      const dataURL = sigCanvas.current.toDataURL();
-      console.log("url iss------", dataURL);
-      return dataURL;
-    }
   };
 
   const initialFvalues = {
@@ -132,7 +118,6 @@ function BookingForm() {
     check_out_date_time: "",
     no_of_persons: 0,
     no_of_rooms: 0,
-    rooms_details: [],
     purpose_of_visit: "",
     signature: "",
     image_url: "",
@@ -145,22 +130,6 @@ function BookingForm() {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
-
-  const handleChangeRoomtype = (e, index) => {
-    if (e.target.value) {
-      let data = { ...values };
-      data.rooms_details[index].type = e.target.value;
-      setValues(data);
-    }
-  };
-  const handleChangeRoomtypeValue = (e, index) => {
-    if (e.target.value) {
-      let data = { ...values };
-      data.rooms_details[index].value = e.target.value;
-      setValues(data);
-    }
-  };
-
   return (
     <Box id={styles.mainbox}>
       <Appbar />
@@ -201,7 +170,7 @@ function BookingForm() {
               onClick={() => {
                 setQrDlg(true);
               }}
-              src="/images/icon_scan.png"
+              src="/images/icon_qrcode.png"
             />
           </Box>
           <Box>
@@ -223,7 +192,6 @@ function BookingForm() {
             <CustomTextField
               placeholder="name"
               name="name"
-              value={values.name}
               border="1px solid #707070"
               borderRadius="10px"
               height="0px"
@@ -238,7 +206,6 @@ function BookingForm() {
             <CustomTextField
               placeholder="name"
               name="mobile"
-              value={values.mobile}
               border="1px solid #707070"
               borderRadius="10px"
               height="0px"
@@ -254,7 +221,6 @@ function BookingForm() {
             <CustomTextField
               placeholder="adress"
               name="address"
-              value={values.address}
               border="1px solid #707070"
               borderRadius="10px"
               height="0px"
@@ -284,18 +250,12 @@ function BookingForm() {
             <CreatableSelect
               options={cities}
               name="city"
-              value={values.city}
               placeholder={"Select City"}
               isClearable
-              onChange={(opt, meta, e) => {
-                setValues({ ...values, city: opt });
-              }}
-              //           onChange={(e,opt, meta) =>
-              //             // this.setState({ cars: this.state.cars.slice().concat(opt) })
-              //             console.log("hiii")
-
-              // setValues({ ...values, [name]: value });
-              //           }
+              onChange={(opt, meta) =>
+                // this.setState({ cars: this.state.cars.slice().concat(opt) })
+                console.log("hiii")
+              }
               style={{
                 borderRadius: "10px",
               }}
@@ -337,7 +297,6 @@ function BookingForm() {
             <CustomTextField
               placeholder="name"
               name="occupation"
-              value={values.occupation}
               border="1px solid #707070"
               borderRadius="10px"
               height="0px"
@@ -353,7 +312,6 @@ function BookingForm() {
             <CustomTextField
               placeholder="booking_source"
               name="booking_source"
-              value={values.booking_source}
               border="1px solid #707070"
               borderRadius="10px"
               height="0px"
@@ -392,9 +350,8 @@ function BookingForm() {
             <CustomLabel label="Check in date and time" />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
-                value={values.check_in_date_time}
-                onChange={handleCheckinDateChange}
-                name="check_in_date_time"
+                value={value}
+                onChange={handleDateChange}
                 renderInput={(params) => (
                   <TextField
                     sx={{
@@ -423,9 +380,8 @@ function BookingForm() {
             <CustomLabel label="Checkout date and time" />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
-                value={values.check_out_date_time}
-                onChange={handleCheckOutDateChange}
-                name="check_out_date_time"
+                value={value}
+                onChange={handleDateChange}
                 renderInput={(params) => (
                   <TextField
                     sx={{
@@ -456,42 +412,30 @@ function BookingForm() {
             <Box id={styles.searchbox}>
               <TextField
                 fullWidth
-                name="no_of_persons"
                 sx={{
                   "& .MuiOutlinedInput-root": { borderRadius: "10px" },
                   background: "#FFFFFF",
                   borderRadius: "10px",
                 }}
-                onChange={(e) => {
+                handleChange={(e) => {
                   handleInputDataChange(e);
                 }}
                 placeholder="No Of Persons"
                 variant="outlined"
                 size="small"
-                value={values.no_of_persons}
+                value={personCnt}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
                       <IconButton edge="end">
                         <AddIcon
-                          id={styles.orange}
-                          onClick={(e) => {
-                            // setpersonCnt(personCnt + 1);
-                            setValues({
-                              ...values,
-                              no_of_persons: values.no_of_persons + 1,
-                            });
+                          onClick={() => {
+                            setpersonCnt(personCnt + 1);
                           }}
                         />
                         <RemoveIcon
-                          id={styles.orange}
                           onClick={() => {
-                            // if (personCnt >= 1) setpersonCnt(personCnt - 1);
-                            if (values.no_of_persons >= 1)
-                              setValues({
-                                ...values,
-                                no_of_persons: values.no_of_persons - 1,
-                              });
+                            if (personCnt >= 1) setpersonCnt(personCnt - 1);
                           }}
                         />
                       </IconButton>
@@ -517,58 +461,24 @@ function BookingForm() {
                 fullWidth
                 variant="outlined"
                 size="small"
-                value={values.no_of_rooms}
+                value={roomlimit}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
                       <IconButton edge="end">
                         <AddIcon
-                          id={styles.orange}
                           onClick={() => {
                             setRoomCnt(1);
-                            // setValues({
-                            //   ...values,
-                            //   no_of_rooms: values.no_of_rooms + 1,
-                            //   rooms_details:
-                            // });
-
-                            let newvalues = { ...values };
-                            newvalues.rooms_details.push({
-                              type: "",
-                              value: "",
-                            });
-                            newvalues.no_of_rooms = values.no_of_rooms + 1;
-
-                            setValues(newvalues);
-                            // setRoomlimit(roomlimit + 1);
+                            setRoomlimit(roomlimit + 1);
                           }}
                         />
                         <RemoveIcon
-                          id={styles.orange}
                           onClick={() => {
-                            if (values.no_of_room > 1) {
-                              // setRoomlimit(roomlimit - 1);
+                            if (roomlimit > 1) {
+                              setRoomlimit(roomlimit - 1);
                               setRoomCnt(1);
-                              // setValues({
-                              //   ...values,
-                              //   no_of_rooms: values.no_of_rooms - 1,
-                              // });
-
-                              let newvalues = { ...values };
-                              newvalues.rooms_details.pop();
-                              newvalues.no_of_rooms = values.no_of_rooms - 1;
-
-                              setValues(newvalues);
-                            } else if ((values.no_of_room = 1)) {
-                              // setRoomlimit(roomlimit - 1);
-                              let newvalues = { ...values };
-                              newvalues.rooms_details.pop({
-                                type: "",
-                                value: "",
-                              });
-                              newvalues.no_of_rooms = values.no_of_rooms - 1;
-                              setValues(newvalues);
-
+                            } else if ((roomlimit = 1)) {
+                              setRoomlimit(roomlimit - 1);
                               setRoomCnt(0);
                             }
                           }}
@@ -596,12 +506,9 @@ function BookingForm() {
                   placeholder="test"
                   border="1px solid #707070"
                   borderRadius="10px"
-                  value={values.rooms_details[index].type}
                   name="name"
                   muiOptions={[{ value: "single" }, { value: "double" }]}
-                  handleChange={(e) => {
-                    handleChangeRoomtype(e, index);
-                  }}
+                  // onChange={handleChangeSelect}
                 />
                 <CustomTextField
                   placeholder="booking_source"
@@ -609,31 +516,11 @@ function BookingForm() {
                   border="1px solid #707070"
                   borderRadius="10px"
                   height="0px"
-                  value={values.rooms_details[index].value}
-                  handleChange={(e) => {
-                    handleChangeRoomtypeValue(e, index);
-                  }}
+                  // onChange={(e) => {
+                  //   handleChange(e);
+                  // }}
                 />
                 {index === roomCnt - 1 && roomCnt !== 1 ? (
-                  <RemoveCircleRoundedIcon
-                    style={{ color: "#E98D12" }}
-                    onClick={() => {
-                      if (roomCnt <= values.no_of_rooms && roomCnt > 1) {
-                        setRoomCnt(roomCnt - 1);
-                      }
-                    }}
-                  />
-                ) : (
-                  <AddCircleRoundedIcon
-                    style={{ color: "#E98D12" }}
-                    onClick={() => {
-                      if (roomCnt < values.no_of_rooms) {
-                        setRoomCnt(roomCnt + 1);
-                      }
-                    }}
-                  />
-                )}
-                {/* {index === roomCnt - 1 && roomCnt !== 1 ? (
                   <RemoveCircleRoundedIcon
                     style={{ color: "#E98D12" }}
                     onClick={() => {
@@ -651,26 +538,28 @@ function BookingForm() {
                       }
                     }}
                   />
-                )} */}
+                )}
+                {/* {(index === (roomCnt - 2)) && (
+                  <RemoveCircleRoundedIcon
+                    style={{ color: "#E98D12" }}
+                    onClick={() => {
+                      if (roomCnt <= roomlimit && roomCnt > 1) {
+                        setRoomCnt(roomCnt - 1);
+                      }
+                    }}
+                  />
+                  )} */}
               </Box>
             </Box>
           ))}
 
           <Box>
             <CustomLabel label="Purpose of visit *" />
-            <CustomSelectValue
+            <CustomSelect
               placeholder="test"
               border="1px solid #707070"
-              name="purpose_of_visit"
               borderRadius="10px"
-              muiOptions={[
-                { value: "education" },
-                { value: "tour" },
-                { value: "test" },
-              ]}
-              handleChange={(e) => {
-                handleInputDataChange(e);
-              }}
+              muiOptions={[{ value: "dfdfd" }]}
             />
           </Box>
 
@@ -693,8 +582,6 @@ function BookingForm() {
             <ReactSignatureCanvas
               id={styles.signaturepad}
               penColor="green"
-              ref={sigCanvas}
-              onEnd={formatIntoPng}
               canvasProps={{
                 height: 112,
                 className: "sigCanvas",
@@ -734,7 +621,7 @@ function BookingForm() {
         <Button
           variant="contained"
           onClick={() => {
-            console.log("clicked on save data --->", values);
+            console.log("clicked on save");
           }}
         >
           Save

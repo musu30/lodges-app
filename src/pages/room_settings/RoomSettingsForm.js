@@ -20,14 +20,12 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import CloseIcon from "@mui/icons-material/Close";
 import RoomSection from "../../components/RoomSection/RoomSection";
+import Appbar from "../../components/AppBar/Appbar";
 
 function RoomSettingsForm() {
   const navigate = useNavigate();
-  const [count, setCount] = useState(0);
-  const [flag, setFlag] = useState(false);
-
-  const inputRef = React.useRef();
   const [types, setTypes] = useState([]);
+  const [catName, setCatName] = useState(null);
 
   useEffect(() => {
     setTypes([
@@ -101,30 +99,9 @@ function RoomSettingsForm() {
     } else {
       console.log("duplication");
     }
-
-
   };
 
-  const handleChange = (e) => {
-    const { maxLength, value, name } = e.target;
-    const [fieldName, fieldIndex] = name.split("-");
-
-    // Check if they hit the max character length
-    if (value.length >= maxLength) {
-      // Check if it's not the last input field
-      if (parseInt(fieldIndex, 10) < 3) {
-        // Get the next input field
-        const nextSibling = document.querySelector(
-          `input[name=ssn-${parseInt(fieldIndex, 10) + 1}]`
-        );
-
-        // If found, focus the next field
-        if (nextSibling !== null) {
-          nextSibling.focus();
-        }
-      }
-    }
-  };
+ 
 
   const handleChangeValue = (event, index, objIndex) => {
     // validateDuplication(event.target.value)
@@ -142,6 +119,25 @@ function RoomSettingsForm() {
 
   const handleClickSave = () => {
     console.log(types);
+  };
+
+  const handleClickAddCategory = () => {
+    console.log("clicked add category");
+    let data = [...types];
+    let flag = true;
+    data.map((item) => {
+      if (item.type === catName) {
+        flag = false;
+        return;
+      }
+    });
+    if (data && flag) {
+      data.push({
+        type: catName,
+        values: [],
+      });
+      setTypes(data);
+    }
   };
 
   const validateDuplication = (val) => {
@@ -162,6 +158,7 @@ function RoomSettingsForm() {
 
   return (
     <Box id={styles.mainbox} flex={4}>
+            <Appbar  logo="true" />   
       <form onSubmit={handleSubmit(onSubmitHandler)}>
         <Box>
           <Stack>
@@ -175,7 +172,7 @@ function RoomSettingsForm() {
               />
               <CustomLabel
                 style={{ paddingLeft: "30px!important" }}
-                label="Manage Your Account"
+                label="Room Settings"
               />
             </Box>
           </Stack>
@@ -184,9 +181,9 @@ function RoomSettingsForm() {
             spacing={3}
             style={{ paddingLeft: "10px", paddingTop: "20px" }}
           >
-            <Grid item lg={12} md={12} sm={12}>
+            <Grid item lg={6} md={6} sm={12}>
               <Box>
-                <CustomLabel label="Total Rooms" />
+                <CustomLabel label="Enter Total Number Rooms" />
 
                 <CustomTextField
                   placeholder="total_rooms"
@@ -197,26 +194,6 @@ function RoomSettingsForm() {
                   register={register}
                 />
               </Box>
-
-              {/* <Stack
-                  direction="row"
-                  sx={{
-                    paddingTop: "40px",
-                  }}
-                  spacing={2}
-                >
-                  <Button
-                    variant="contained"
-                    sx={{
-                      background: "grey",
-                    }}
-                  >
-                    CANCEL
-                  </Button>
-                  <Button type="submit" variant="contained">
-                    SAVE
-                  </Button>
-                </Stack> */}
             </Grid>
           </Grid>
           <Box>
@@ -234,21 +211,45 @@ function RoomSettingsForm() {
               })}
             </Grid>
           </Box>
-          <Box
-            sx={{
-              paddingTop: "20px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            spacing={8}
+            style={{ paddingTop: "20px" }}
           >
-            <Button variant="contained" onClick={handleClickCategory}>
-              Add category
+            <Button
+              variant="contained"
+              style={{
+                width: "150px",
+                background: "grey",
+              }}
+              onClick={handleClickCategory}
+            >
+              CANCEL
             </Button>
-            <Button variant="contained" onClick={handleClickSave}>
+            <Button
+              variant="contained"
+              style={{
+                width: "150px",
+                background: "#00BEB8",
+              }}
+              onClick={handleClickSave}
+            >
               Save
             </Button>
-          </Box>
+            <Button
+              variant="contained"
+              style={{
+                width: "150px",
+                background: "#00BEB8B3",
+              }}
+              onClick={handleClickCategory}
+            >
+              + Add category
+            </Button>
+          </Stack>
         </Box>
       </form>
 
@@ -260,6 +261,7 @@ function RoomSettingsForm() {
           "& .MuiPaper-root": {
             background: "#00BEB9!important",
             borderRadius: "20px",
+            paddinngLeft: "100px",
           },
           "& .MuiDialogContent-root": {
             border: "none",
@@ -267,7 +269,6 @@ function RoomSettingsForm() {
         }}
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
-          <CustomLabel label="Take Photo" />
           <IconButton
             aria-label="close"
             onClick={() => {
@@ -288,11 +289,15 @@ function RoomSettingsForm() {
           <Box>
             <CustomLabel label="Enter Category" />
 
-            <CustomTextField
+            <TextField
               placeholder="name"
               border="1px solid #707070"
               borderRadius="10px"
               height="0px"
+              value={catName}
+              onChange={(e) => {
+                setCatName(e.target.value);
+              }}
             />
           </Box>
         </DialogContent>
@@ -307,22 +312,25 @@ function RoomSettingsForm() {
           }}
         >
           <Button
-            // sx={{
-            //   color: "white",
-            // }}
+            style={{
+              width: "100px",
+              background: "#00BEB8",
+            }}
             variant="contained"
             onClick={() => {
               console.log("clicked save");
+              handleClickAddCategory();
+              setCatName(null);
+              setCatOpen(false);
             }}
           >
             Add
           </Button>
           <Button
             variant="contained"
-            sx={{
-              background: "#00D5CF",
-              paddingLeft: "10px",
-              paddingRight: "10px",
+            style={{
+              width: "100px",
+              background: "#00000029",
             }}
             onClick={() => {
               setCatOpen(false);
