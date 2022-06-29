@@ -25,17 +25,6 @@ function ImageDiologueBox(props) {
   }, []);
   const webcomponent = useRef(null);
 
-  const [source, setSource] = useState("");
-  const handleCapture = (target) => {
-    if (target.files) {
-      if (target.files.length !== 0) {
-        const file = target.files[0];
-        const newUrl = URL.createObjectURL(file);
-        setSource(newUrl);
-      }
-    }
-  };
-
   return (
     <Dialog
       //   onClose={handleClose}
@@ -80,6 +69,7 @@ function ImageDiologueBox(props) {
       <DialogContent dividers>
         <Box
           style={{
+            display: "flex",
             justifyContent: "center",
             marginLeft: "20px",
             marginRight: "20px",
@@ -95,52 +85,14 @@ function ImageDiologueBox(props) {
             src="/images/icon_close.png"
           /> */}
 
-          {/* <WebcamCapture
+          <WebcamCapture
             retake={retake}
             imageCallback={imageCallback}
             webcomponent={webcomponent}
             setRetake={setRetake}
-          /> */}
-          {source ? (
-            <Box justifyContent="center">
-              <img
-                src={source}
-                style={{ width: "500px", height: "300px" }}
-                alt={"snap"}
-              ></img>
-            </Box>
-          ) : (
-            <Box justifyContent="center">
-              <img
-                src="images/img_sample_gallery.png"
-                style={{ width: "100%", height: "300px" }}
-                alt={"snap"}
-              ></img>
-            </Box>
-          )}
-          <Box style={{ display: "flex", justifyContent: "center" }}>
-            <input
-              accept="image/*"
-              id="icon-button-file"
-              type="file"
-              capture="environment"
-              onChange={(e) => handleCapture(e.target)}
-              style={{ display: "none" }}
-            />
-            <label htmlFor="icon-button-file">
-              <Box
-                sx={{
-                  background: "white",
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "130px",
-                  pointer: "cursor",
-                }}
-              ></Box>
-            </label>
-          </Box>
+          />
 
-          {/* <img
+          <img
             style={{
               height: "35px",
               width: "35px",
@@ -150,7 +102,7 @@ function ImageDiologueBox(props) {
               position: "absolute",
             }}
             src="/images/icon_image_sign.png"
-          /> */}
+          />
         </Box>
       </DialogContent>
       <Stack
