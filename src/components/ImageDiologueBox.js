@@ -14,7 +14,8 @@ import React, { useCallback, useRef, useState } from "react";
 import { styled } from "@mui/styles";
 import CustomLabel from "./CustomLabel";
 import { WebcamCapture } from "./WebCam";
-import { CLR_ORANGE } from "../utils/colors";
+import { CLR_LIGHT_WHITE, CLR_ORANGE } from "../utils/colors";
+import { borderRadius } from "@mui/system";
 
 function ImageDiologueBox(props) {
   const [retake, setRetake] = useState(false);
@@ -25,7 +26,7 @@ function ImageDiologueBox(props) {
   }, []);
   const webcomponent = useRef(null);
 
-  const [source, setSource] = useState("");
+  const [source, setSource] = useState(null);
   const handleCapture = (target) => {
     if (target.files) {
       if (target.files.length !== 0) {
@@ -70,6 +71,7 @@ function ImageDiologueBox(props) {
             src="/images/icon_close.png"
             onClick={(item) => {
               // navigate(-1);
+              setSource(null);
               props.setOpen(false);
             }}
           />
@@ -134,7 +136,7 @@ function ImageDiologueBox(props) {
                   width: "40px",
                   height: "40px",
                   borderRadius: "130px",
-                  pointer: "cursor",
+                  cursor: "pointer",
                 }}
               ></Box>
             </label>
@@ -164,29 +166,45 @@ function ImageDiologueBox(props) {
         }}
       >
         <Button
-          disabled={!retake}
-          // sx={{
-          //   color: "white",
-          // }}
+          disabled={source}
+          sx={{
+            paddingLeft: "10px",
+            paddingRight: "10px",
+            background:`${CLR_LIGHT_WHITE}`,
+            borderRadius:"10px",
+            shadowColor: "1px 1px 6px #E98D12",
+            color:`${CLR_ORANGE}`,
+            "&:hover":{
+              color:`${CLR_ORANGE}`,
+              background:`${CLR_LIGHT_WHITE}`,
+            }
+          }}
           variant="contained"
           onClick={() => {
             webcomponent.retake();
           }}
         >
-          Retake
+          Save as Image
         </Button>
         <Button
           variant="contained"
+          disabled={source}
           sx={{
-            background: "#00D5CF",
             paddingLeft: "10px",
             paddingRight: "10px",
+            background:`${CLR_ORANGE}`,
+            borderRadius:"10px",
+            shadowColor: "1px 1px 6px #E98D12",
+            "&:hover":{
+              color:`${CLR_ORANGE}`,
+              background:`${CLR_LIGHT_WHITE}`,
+            }
           }}
           onClick={() => {
             webcomponent.capture();
           }}
         >
-          Save
+          Save as Id
         </Button>
       </Stack>
     </Dialog>
